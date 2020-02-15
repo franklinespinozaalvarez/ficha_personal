@@ -15,7 +15,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-
+import ViewDetail from './ViewDetail';
 const styles = theme => ({
     root: {
         margin: 0,
@@ -98,48 +98,47 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const ViewDetalle = (props) =>{
+    const {onClose, open} = props;
+    const classes = useStyles();
+    return (
+        <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open} >
+            <DialogTitle id="customized-dialog-title" onClose={onClose} className={classes.fondoTitle}>
+                DETALLE
+            </DialogTitle>
+            <DialogContent className={classes.espacioBoton} dividers>
+                <TextField id="standard-read-only-input" label="Cargo" defaultValue="Técnico Administración Bases de Datos" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Fecha Ingreso" defaultValue="02/01/2018" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Nro NUA" defaultValue="44786050" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Nro Cuenta" defaultValue="10000025240718" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Nro Seguro" defaultValue="86-0226-EAF" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Email Coorporativo" defaultValue="franklin.espinoza@boa.bo" InputProps={{ readOnly: true,}}/>
+                <TextField id="standard-read-only-input" label="Codigo Biométrico" defaultValue="5242" InputProps={{ readOnly: true,}}/>
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus onClick={onClose} color="primary" variant={"outlined"}>
+                    Aceptar
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+
+};
+
 const Preview = () => {
     const classes = useStyles();
     //const [expand, setExpand] = useState(false);
 
     const [open, setOpen] = useState(false);
+    const [tipo, setTipo] = useState('');
 
-    const handleOpen = () => {
-        setOpen(true); console.log('llega');
+
+    const handleOpen = (props) => {
+        console.log('props',props);
+        setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
-    };
-
-    const viewDetalle = (props) =>{
-        //handleOpen();
-        return (
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-              <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-                  Modal title
-              </DialogTitle>
-              <DialogContent dividers>
-                  <Typography gutterBottom>
-                      Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                  </Typography>
-                  <Typography gutterBottom>
-                      Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-                      lacus vel augue laoreet rutrum faucibus dolor auctor.
-                  </Typography>
-                  <Typography gutterBottom>
-                      Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-                      scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-                      auctor fringilla.
-                  </Typography>
-              </DialogContent>
-              <DialogActions>
-                  <Button autoFocus onClick={handleClose} color="primary">
-                      Save changes
-                  </Button>
-              </DialogActions>
-          </Dialog>
-        );
     };
 
     /*const viewLaboral = (props) =>{
@@ -203,6 +202,12 @@ const Preview = () => {
             </Dialog>
         );
     };*/
+    /*const definirView = (id, e) => {
+        console.log(id);
+        return (
+            <ViewDetail id={id}/>
+        );
+    }*/
 
     return (
         <div className="row justify-content-between " >
@@ -222,25 +227,8 @@ const Preview = () => {
                     title="Laboral"
                 />
             </Card>
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
-                <DialogTitle id="customized-dialog-title" onClose={handleClose} className={classes.fondoTitle}>
-                    DETALLE
-                </DialogTitle>
-                <DialogContent className={classes.espacioBoton} dividers>
-                    <TextField id="standard-read-only-input" label="Cargo" defaultValue="Técnico Administración Bases de Datos" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Fecha Ingreso" defaultValue="02/01/2018" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Nro NUA" defaultValue="44786050" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Nro Cuenta" defaultValue="10000025240718" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Nro Seguro" defaultValue="86-0226-EAF" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Email Coorporativo" defaultValue="franklin.espinoza@boa.bo" InputProps={{ readOnly: true,}}/>
-                    <TextField id="standard-read-only-input" label="Codigo Biométrico" defaultValue="5242" InputProps={{ readOnly: true,}}/>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose} color="primary" variant={"outlined"}>
-                       Aceptar
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <ViewDetalle onClose={handleClose} open={open}/>
+
             <Card className="col-sm-6">
                 <CardHeader
                     avatar={
@@ -280,3 +268,22 @@ const Preview = () => {
 };
 
 export default Preview;
+/*<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >
+                <DialogTitle id="customized-dialog-title" onClose={handleClose} className={classes.fondoTitle}>
+                    DETALLE
+                </DialogTitle>
+                <DialogContent className={classes.espacioBoton} dividers>
+                    <TextField id="standard-read-only-input" label="Cargo" defaultValue="Técnico Administración Bases de Datos" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Fecha Ingreso" defaultValue="02/01/2018" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Nro NUA" defaultValue="44786050" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Nro Cuenta" defaultValue="10000025240718" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Nro Seguro" defaultValue="86-0226-EAF" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Email Coorporativo" defaultValue="franklin.espinoza@boa.bo" InputProps={{ readOnly: true,}}/>
+                    <TextField id="standard-read-only-input" label="Codigo Biométrico" defaultValue="5242" InputProps={{ readOnly: true,}}/>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose} color="primary" variant={"outlined"}>
+                       Aceptar
+                    </Button>
+                </DialogActions>
+            </Dialog>*/
